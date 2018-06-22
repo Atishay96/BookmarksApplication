@@ -15,10 +15,10 @@ const Users = Schema ({
     type: String,
    required: true
   },
-  bookmarks:[{
-    type: Schema.Types.ObjectId,
-    ref: ''
-  }],
+  // bookmarks:[{
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Bookmarks'
+  // }],
   lastLoggedIn: {
     type: Date,
     default: new Date()

@@ -14,4 +14,19 @@ app.post('/signUp', (req, res, next) => { Validator.Validate(req, res, next, ['e
   UserController.signUp(req, res);
 })
 
+//get all bookmarks
+app.get('/bookmarks', (req, res) => {
+  UserController.getAllBookmarks(req, res);
+})
+
+// add/edit bookmark
+app.put('/bookmark', (req, res) => {
+  UserController.addBookmark(req, res);
+})
+
+// delete bookmark
+app.delete('/bookmark', (req, res) => {
+  UserController.deleteBookmark(req, res);
+})
+
 module.exports = app;

@@ -1,23 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Bookmarks = Schema ({
-	email: {
+  name:{
     type: String,
-    unique: true,
     required: true
   },
-  password: {
-    type: String,
-   required: true
-  },
-  bookmarks:[{
+  user:{
     type: Schema.Types.ObjectId,
-    ref: ''
-  }],
-  lastLoggedIn: {
-    type: Date,
-    default: new Date()
-  }
+    ref: 'User'
+  },
+  tags:[{
+    type: String
+  }]
 },{
 	timestamps:true
 });
