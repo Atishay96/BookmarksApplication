@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Bookmarks = Schema ({
-  name:{
+  url:{
+    type: String,
+    required: true
+  },
+  title:{
     type: String,
     required: true
   },

@@ -8,7 +8,7 @@ class UserController {
   async login(req, res) {
     try {
       let user = await User.findOne({
-        email: req.body.email.toLowerString()
+        email: req.body.email.toLowerCase()
       });
       if (!user)
         return __.notFound(res, 'No User Registered with this email');
@@ -25,10 +25,9 @@ class UserController {
       //generating token
       let token = jwt.sign(tempNew, process.env.randomKey);
       let final = {
-        token,
-        name
+        token
       }
-      return __.success(res, token, 'Successfully logged in');
+      return __.success(res, final, 'Successfully logged in');
     } catch (err) {
       __.errorInternal(err, res);
     }
@@ -36,7 +35,7 @@ class UserController {
   async signUp(req, res) {
     try {
       let check = await User.findOne({
-        email: req.body.email.toLowerString()
+        email: req.body.email.toLowerCase()
       }).select('email').lean();
       if (check)
         return __.notAuthorized(res, 'Email is already taken. Please try with some other email');
@@ -57,17 +56,16 @@ class UserController {
       userNew.authToken = token;
       delete userNew['password'];
       let final = {
-        token,
-        name
+        token
       }
-      return __.success(res, token, "Successfully Signed up");
+      return __.success(res, final, "Successfully Signed up");
     } catch (err) {
       __.errorInternal(err, res);
     }
   }
   async getAllBookmarks(req, res, status) {
     try {
-      let bookmarks = await Bookmarks.find({ user: req.user._id }).select('name bookmarks').sort({ createdAt: -1 }).lean();
+      let bookmarks = await Bookmarks.find({ user: req.user._id }).select('url title tags createdAt').sort({ createdAt: -1 }).lean();
       let message = 'List displayed';
       if(status === 1) message = 'Bookmark succesfully added';
       if(status === 2) message = 'Bookmark succesfully updated';
@@ -93,7 +91,7 @@ class UserController {
   }
   async editBookmark(req, res){
     try {
-      let book = await Bookmarks.findOneAndUpdate({ _id: req.body._id }, { name: req.body.name });
+      let book = await Bookmarks.findOneAndUpdate({ _id: req.body._id }, { title: req.body.title, url: req.body.url, tags: req.body.tags });
       if(!book)
         return __.notFound(res, 'Wrong Book id');
       return this.getAllBookmarks(req, res, 2);
@@ -103,7 +101,7 @@ class UserController {
   }
   async deleteBookmark(req, res){
     try {
-      let book = await Bookmarks.findOne({ _id: req.body._id }, { name: req.body.name }).remove().exec();
+      let book = await Bookmarks.findOne({ _id: req.body._id }).remove().exec();
       return this.getAllBookmarks(req, res, 3);
     } catch(err) {
       __.errorInternal(err, res);

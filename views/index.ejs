@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="bookmark" ng-controller="loginCont">
+
+<head>
+  <title>Bookmark Manager</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>Bookmark Manager</h1>
+  </div>
+
+  <div class="container">
+    <form name="signin">
+      <div class="form-group">
+        <label for="pwd">Email address:</label>
+        <input type="email" class="form-control" name="email" ng-model="email" id="email">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" name="password" ng-model="password" id="pwd">
+      </div>
+      <div>
+        <label>
+          <a href="/signup">Sign Up?</a>
+        </label>
+      </div>
+      <button type="submit" ng-click="submit()" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+
+</body>
+<!-- SCRIPTS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.0/angular.min.js"></script>
+<script src="/app.js"></script>
+<script src="./javascripts/LoginController.js"></script>
+
+</html>

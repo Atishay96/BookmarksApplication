@@ -26,6 +26,9 @@ class Response{
   message(res, status, message){
     return res.status(status).json({message});
   }
+  badValues(res){
+    return res.status(400).json({message: "Bad Values"})
+  }
 }
 
 Response = new Response();

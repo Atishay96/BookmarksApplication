@@ -28,6 +28,7 @@ switch (process.env.mode) {
 
 //routes
 const UserRoutes = require('./routes/UserRoutes');
+const WebRoutes = require('./routes/WebRoutes');
 
 mongoose.connect(process.env.database).catch((err) => {
     if (err) {
@@ -56,7 +57,7 @@ app.use(mongoSanitize());
 
 //routes files
 app.use('/api/user/', UserRoutes);
-
+app.use('/', WebRoutes);
 // catch 404
 app.use((req, res, next) => {
     return res.status(404).send({ message: "Wrong URL" });

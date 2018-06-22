@@ -1,7 +1,7 @@
 const __ = require('./Response');
 
 class Validator{
-  Validate(req, res, next, array){
+  Validate(req, res, next, arrayOfStrings){
       req.error = '';
       arrayOfStrings.map((v, i) => {
           if (req.body[v] === null || req.body[v] === undefined || req.body[v] === '') {
