@@ -89,6 +89,7 @@ class UserController {
         temp.tags[i] = temp.tags[i].toLowerCase();
         temp.tags[i] = temp.tags[i].replace(/ /g,'');
       })
+      temp.tags = temp.tags.filter(Boolean);
       let book = await Bookmarks.create(temp);
       return this.getAllBookmarks(req, res, 1);
     } catch(err) {
@@ -97,6 +98,11 @@ class UserController {
   }
   async editBookmark(req, res){
     try {
+      req.body.tags.map((v,i)=>{
+        req.body.tags[i] = v.toLowerCase();
+        req.body.tags[i] = v.replace(/ /g,'');
+      })
+      req.body.tags = req.body.tags.filter(Boolean);
       let book = await Bookmarks.findOneAndUpdate({ _id: req.body._id }, { title: req.body.title, url: req.body.url, tags: req.body.tags });
       if(!book)
         return __.notFound(res, 'Wrong Book id');
