@@ -9,9 +9,10 @@ class Auth{
   async authMiddleware(req, res, next) {
     try {
       let token = req.headers['authtoken'];
-			if(!token){
+			if(!token || token === 'null'){
 				return __.sessionExpired(res);
-			}
+      }
+      console.log(token);
       let temp = jwt.verify(token, process.env.randomKey);
       console.log(temp)
 			let user = await User.findOne({_id:temp._id, lastLoggedIn: temp.lastLoggedIn});

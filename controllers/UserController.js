@@ -86,6 +86,7 @@ class UserController {
       temp.title = req.body.title;
       temp.tags = req.body.tags;
       temp.tags.map((v,i)=>{
+        temp.tags[i] = temp.tags[i].toLowerCase();
         temp.tags[i] = temp.tags[i].replace(/ /g,'');
       })
       let book = await Bookmarks.create(temp);

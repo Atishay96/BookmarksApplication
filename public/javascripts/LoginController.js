@@ -22,6 +22,9 @@ app.controller('loginCont',function($scope, $http){
     if(!$scope.password || !$scope.email || !$scope.name) {
       return;
     }
+    if($scope.password <= 6){
+      return alert('Password should be greater than 6')
+    }
     $http({
       url: '/api/user/signup',
       method: 'POST',
@@ -37,6 +40,20 @@ app.controller('loginCont',function($scope, $http){
       window.location.href = '/list';
     }).error( function(err, status){
       return checkError(err, status);
+    })
+  }
+  $scope.verifyToken = function(){
+    var token = getToken();
+    $http({
+      url: '/api/user/verifyToken',
+      method: 'GET',
+      headers:{
+        AuthToken: token
+      }
+    }).success(function(data){ 
+      return window.location.href = '/list'
+    }).error(function(err){
+      // do nothing
     })
   }
 })
