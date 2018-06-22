@@ -20,17 +20,19 @@
       <div class="form-group">
         <label for="pwd">Email address:</label>
         <input type="email" class="form-control" name="email" ng-model="email" id="email">
+        <span class="error" ng-show="(signin.email.$touched || submitted ) &&!email.length">Correct Email is required.</span>
       </div>
       <div class="form-group">
         <label for="pwd">Password:</label>
         <input type="password" class="form-control" name="password" ng-model="password" id="pwd">
+        <span class="error" ng-show="(signin.password.$touched || submitted ) &&!password.length">Password is required.</span>
       </div>
       <div>
         <label>
           <a href="/signup">Sign Up?</a>
         </label>
       </div>
-      <button type="submit" ng-click="submit()" class="btn btn-default">Submit</button>
+      <button type="submit" ng-click="submitted=true;submit()" class="btn btn-default">Submit</button>
     </form>
   </div>
 

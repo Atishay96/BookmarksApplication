@@ -9,7 +9,7 @@ app.controller('bookmarkController', function ($scope, $http) {
         authToken: token
       }
     }).success((data) => {
-      console.log(data);
+      // console.log(data);
       $scope.original = data.data;
       data.data.map((v, i) => {
         data.data[i].tags = v.tags.join(', ')
@@ -23,7 +23,7 @@ app.controller('bookmarkController', function ($scope, $http) {
     if (!$scope.book || !$scope.book.url || !$scope.book.title || !$scope.book.tags) {
       return;
     }
-    console.log($scope.book);
+    // console.log($scope.book);
     $scope.book.tags = $scope.book.tags.split(',');
     var token = getToken();
     $http({
