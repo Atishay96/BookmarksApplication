@@ -1,14 +1,19 @@
-const __ = require('../helpers/Response').default;
+const __ = require('../helpers/Response');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
+//models
+const User = require('../models/User');
+
 class Auth{
-  async authMiddleware(req, res) {
+  async authMiddleware(req, res, next) {
     try {
       let token = req.headers['authtoken'];
 			if(!token){
 				return __.sessionExpired(res);
 			}
-			let temp = jwt.verify(token, process.env.randomKey);
+      let temp = jwt.verify(token, process.env.randomKey);
+      console.log(temp)
 			let user = await User.findOne({_id:temp._id, lastLoggedIn: temp.lastLoggedIn});
 			if(!user) {
 				return __.sessionExpired(res);

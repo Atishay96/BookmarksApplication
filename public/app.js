@@ -7,3 +7,7 @@ checkError = function(error, status){
         alert(error.message)
     }
 }
+
+getToken = function(){
+  return localStorage.getItem('userToken');
+}

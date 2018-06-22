@@ -81,8 +81,13 @@ class UserController {
         return this.editBookmark(req, res);
       }
       let temp = {};
-      temp.name = req.body.name;
+      temp.url = req.body.url;
       temp.user = req.user._id;
+      temp.title = req.body.title;
+      temp.tags = req.body.tags;
+      temp.tags.map((v,i)=>{
+        temp.tags[i] = temp.tags[i].replace(/ /g,'');
+      })
       let book = await Bookmarks.create(temp);
       return this.getAllBookmarks(req, res, 1);
     } catch(err) {
@@ -105,6 +110,17 @@ class UserController {
       return this.getAllBookmarks(req, res, 3);
     } catch(err) {
       __.errorInternal(err, res);
+    }
+  }
+  async searchTags(req, res){
+    try{
+      let temp = {};
+      if(req.body.tags) temp.tags = req.body.tags.toLowerCase();
+      let bookmarks = await Bookmarks.find(temp).select('url title tags createdAt').sort({ createdAt: -1 }).lean();
+      let message = 'List displayed';
+      return __.success(res, bookmarks, 'Bookmarks filtered');
+    } catch(err) {
+      __.errorInternal(err ,res);
     }
   }
 }

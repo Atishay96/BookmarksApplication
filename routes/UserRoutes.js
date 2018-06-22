@@ -15,17 +15,17 @@ app.post('/signUp', (req, res, next) => { Validator.Validate(req, res, next, ['e
 })
 
 //get all bookmarks
-app.get('/bookmarks', (req, res) => {
+app.get('/bookmarks', Auth.authMiddleware, (req, res) => {
   UserController.getAllBookmarks(req, res);
 })
 
 // add/edit bookmark
-app.put('/bookmark', (req, res) => {
+app.put('/bookmark', Auth.authMiddleware, (req, res, next) => { Validator.Validate(req, res, next, ['url', 'title', 'tags']) }, (req, res) => {
   UserController.addBookmark(req, res);
 })
 
 // delete bookmark
-app.delete('/bookmark', (req, res) => {
+app.post('/deleteBookmark', Auth.authMiddleware, (req, res, next) => { Validator.Validate(req, res, next, ['_id']) }, (req, res) => {
   UserController.deleteBookmark(req, res);
 })
 

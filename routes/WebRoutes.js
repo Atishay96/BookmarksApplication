@@ -9,4 +9,8 @@ app.get('/signup', (req, res)=>{
   res.render('../views/signup.ejs');
 })
 
+app.get('/list', (req, res)=>{
+  res.render('../views/list.ejs');
+})
+
 module.exports = app;
