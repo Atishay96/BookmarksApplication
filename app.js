@@ -66,3 +66,5 @@ app.use((req, res, next) => {
 const server = app.listen(process.env.port, () => {
   console.log('Server is up and running');
 });
+
+module.exports = server;

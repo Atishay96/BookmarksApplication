@@ -42,7 +42,7 @@ app.post('/searchTags', Auth.authMiddleware, (req, res) => {
   UserController.searchTags(req, res);
 })
 
-
+//verify whether the token exists or not
 app.get('/verifyToken', Auth.authMiddleware, (req, res) => {
   return __.message(res, 200, "Token Valid");
 })
